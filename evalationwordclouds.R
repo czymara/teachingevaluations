@@ -25,8 +25,8 @@ DFM <- dfm(toks)
 
 # wordcloud
 
-win.metafile("C:/Users/czymara.local/PowerFolders/teaching/out/eval_wordcloud.wmf")
-# dev.copy(png,"C:/Users/czymara.local/PowerFolders/teaching/out/eval_wordcloud.png")
+win.metafile("C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/eval_wordcloud.wmf")
+# dev.copy(png,"C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/eval_wordcloud.png")
 textplot_wordcloud(DFM,
                   # min_size = 1.5,
                  #  min_count = 3,

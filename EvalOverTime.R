@@ -33,10 +33,6 @@ evals <- data.frame("semester" = c("2016", "2016/17", "2017", "2017/18",
                                  0.4, 0.8, 0.7, 0.3)
                     )
 
-# for inference statistics
-# evals$CIupper <- evals$mean + 1.96*(evals$sd/sqrt(evals$n))
-# evals$CIlower <- evals$mean - 1.96*(evals$sd/sqrt(evals$n))
-
 evals$grandmean <- mean(evals$mean, na.rm = T)
 
 evals$worthgrandmean <- mean(evals$worth, na.rm = T)
@@ -46,10 +42,12 @@ library(ggplot2); theme_set(theme_bw() +
                                     panel.grid.major = element_blank(),
                                     panel.grid.minor = element_blank(),
                                     panel.border = element_blank(),
-                                    panel.background = element_blank()))
+                                    panel.background = element_blank(),
+                                    axis.text = element_text(color="black"),
+                                    axis.ticks = element_line(colour = "black")))
 
-# win.metafile("C:/Users/czymara.local/PowerFolders/teaching/out/evalovertime.wmf")
-dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/out/evalovertime.png",
+# win.metafile("C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.wmf")
+dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.png",
          units="px", width=1600, height=1600, res=300)
 ggplot(data = evals, aes(y = semester,
                          x = mean,
@@ -63,8 +61,6 @@ ggplot(data = evals, aes(y = semester,
        caption = "Means and standard deviations
        Overall grade (left y-axis): Until 2018 scale 1-5,
        from 2018/19 scale 1-6") +
- # theme(legend.position = "none") +
-  # scale_x_continuous(limits = c(0, 6.5), breaks = c(1:6)) +
   geom_path(aes(group = 1), colour = "grey") +
   geom_vline(xintercept = evals$grandmean ,
              colour = "black") +
