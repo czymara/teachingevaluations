@@ -16,14 +16,15 @@ toks <- tokens(corpus(evaluations), remove_punct = T,
                remove_hyphens = T)
 
 toks <-  tokens_remove(toks, c(stopwords("german"),
-                               "dass", "h", "w?re", "w?ren",
-                               "bzw", "pro", "eher"), case_insensitive = TRUE, padding = FALSE)
+                               "dass", "h", "wäre", "wären", "z.b", "mal",
+                               "bzw", "pro", "eher", "h", "denen",
+                               "dafür", "innen", "ja", "wurde"), case_insensitive = TRUE, padding = FALSE)
 toks <-  tokens_remove(toks, stopwords(), case_insensitive = TRUE, padding = FALSE)
 
 DFM <- dfm(toks)
 
 
-# wordcloud
+### wordcloud
 
 win.metafile("C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/eval_wordcloud.wmf")
 # dev.copy(png,"C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/eval_wordcloud.png")
@@ -32,7 +33,6 @@ textplot_wordcloud(DFM,
                  #  min_count = 3,
                    color = "black")
 dev.off()
-
 
 
 ## sentiment analysis
