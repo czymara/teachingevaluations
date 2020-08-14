@@ -69,14 +69,14 @@ ggplot(data = evals, aes(y = semester,
                      sec.axis = sec_axis(~. , breaks = c(1:6),
                                          name = "Course worth\nattending (6: agree)")
                      ) +
-  geom_path(data = evals, aes(x = worth, group = 1), colour = "orange") +  # add the second axis
+  geom_path(data = evals, aes(x = worth, group = 1), colour = "red") +  # add the second axis
   geom_point(data = evals, aes(y = semester,
                                x = worth#,
                                # colour = University
                                )) +
   theme(axis.text.x = element_text(angle = 90),
         axis.title.y = element_text(color = "blue"),
-        axis.title.y.right = element_text(color = "orange")) +
+        axis.title.y.right = element_text(color = "red")) +
   labs(title = "Evaluation of my courses",
        caption = "Means and standard deviations
        Overall grade (left y-axis): Until 2018 scale 1-5,
