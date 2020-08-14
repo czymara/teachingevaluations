@@ -46,24 +46,21 @@ library(ggplot2); theme_set(theme_bw() +
                                     axis.text = element_text(color="black"),
                                     axis.ticks = element_line(colour = "black")))
 
+
 # win.metafile("C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.wmf")
 dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.png",
          units="px", width=1600, height=1600, res=300)
 ggplot(data = evals, aes(y = semester,
-                         x = mean,
-                         colour = University)) +
+                         x = mean#,
+                         # colour = University
+                         )) +
   geom_errorbarh(aes(xmin = mean - sd,
                      xmax = mean + sd),
                  colour = "grey") +
   xlab("Overall grade (1: best)") + ylab("") +
-  theme(axis.text.x = element_text(angle = 90)) +
-  labs(title = "Teaching evaluation of C. Czymara",
-       caption = "Means and standard deviations
-       Overall grade (left y-axis): Until 2018 scale 1-5,
-       from 2018/19 scale 1-6") +
-  geom_path(aes(group = 1), colour = "grey") +
-  geom_vline(xintercept = evals$grandmean ,
-             colour = "black") +
+  geom_path(aes(group = 1), colour = "blue") +
+  # geom_vline(xintercept = evals$grandmean ,
+  #           colour = "blue") +
   geom_point() +
   geom_errorbarh(data = evals, aes(xmin = worth - worthSD,
                      xmax = worth + worthSD),
@@ -72,10 +69,18 @@ ggplot(data = evals, aes(y = semester,
                      sec.axis = sec_axis(~. , breaks = c(1:6),
                                          name = "Course worth\nattending (6: agree)")
                      ) +
-  geom_path(data = evals, aes(x = worth, group = 1), colour = "grey") +  # add the second axis
+  geom_path(data = evals, aes(x = worth, group = 1), colour = "orange") +  # add the second axis
   geom_point(data = evals, aes(y = semester,
-                               x = worth,
-                               colour = University)) +
+                               x = worth#,
+                               # colour = University
+                               )) +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.title.y = element_text(color = "blue"),
+        axis.title.y.right = element_text(color = "orange")) +
+  labs(title = "Teaching evaluation of C. Czymara",
+       caption = "Means and standard deviations
+       Overall grade (left y-axis): Until 2018 scale 1-5,
+       from 2018/19 scale 1-6") +
 coord_flip()
 dev.off()
 
