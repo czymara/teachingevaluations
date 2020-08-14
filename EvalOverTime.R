@@ -77,7 +77,7 @@ ggplot(data = evals, aes(y = semester,
   theme(axis.text.x = element_text(angle = 90),
         axis.title.y = element_text(color = "blue"),
         axis.title.y.right = element_text(color = "orange")) +
-  labs(title = "Teaching evaluation of C. Czymara",
+  labs(title = "Evaluation of my courses",
        caption = "Means and standard deviations
        Overall grade (left y-axis): Until 2018 scale 1-5,
        from 2018/19 scale 1-6") +
