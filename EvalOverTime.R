@@ -53,6 +53,7 @@ library(ggplot2); theme_set(theme_bw() +
                                     axis.ticks = element_line(colour = "black")))
 
 
+# full enlish version
 # win.metafile("C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.wmf")
 dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.png",
          units="px", width=1600, height=1600, res=300)
@@ -89,4 +90,42 @@ ggplot(data = evals, aes(y = semester,
        from 2018/19 scale 1-6") +
 coord_flip()
 dev.off()
+
+
+# german version
+dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime_de.png",
+         units="px", width=1600, height=1600, res=300)
+ggplot(data = evals, aes(y = semester,
+                         x = mean#,
+                         # colour = University
+                         )) +
+  geom_errorbarh(aes(xmin = mean - sd,
+                     xmax = mean + sd),
+                 colour = "grey") +
+  xlab("Globalurteil (1: sehr gut)") + ylab("") +
+  geom_path(aes(group = 1), colour = "blue") +
+  geom_point() +
+  geom_errorbarh(data = evals, aes(xmin = worth - worthSD,
+                                   xmax = worth + worthSD),
+                 colour = "grey") +
+  scale_x_continuous(limits = c(0, 6.5), breaks = c(1:6),
+                     sec.axis = sec_axis(~. , breaks = c(1:6),
+                                         name = "Der Besuch der Veranstaltung lohnt sich
+(6: stimme voll und ganz zu)")
+  ) +
+  geom_path(data = evals, aes(x = worth, group = 1), colour = "red") +  # add the second axis
+  geom_point(data = evals, aes(y = semester,
+                               x = worth#,
+                               # colour = University
+  )) +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.title.y = element_text(color = "blue"),
+        axis.title.y.right = element_text(color = "red")) +
+  labs(#title = "Evaluation of my courses",
+    caption = "Mittelwert und Standardabweichung
+       Bis 2018: Skala von 1-5,
+       ab 2018/19: Skala von 1-6") +
+  coord_flip()
+dev.off()
+
 
