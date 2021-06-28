@@ -6,37 +6,38 @@ evals <- data.frame("semester" = c("2016", "2016/17", "2017", "2017/18",
                                    # frankfurt
                                    "2018", "2018/19",
                                    "2019", "2019/20",
-                                   "2020", "2020/21"),
+                                   "2020", "2020/21",
+                                   "2021"),
                     "mean" = c(2, 1.6, NA, 1.4,
                                # frankfurt
-                               1.7,
-                               1.6, 1.4,
-                               1.5, 1.4,
+                               1.7, 1.6,
+                               1.4, 1.5,
+                               1.4, 1.2,
                                1.2
                                ),
                     "sd" = c(0, 0.7, NA, 0.6,
                              # frankfurt
-                             0.5,
                              0.5, 0.5,
-                             0.7, 1.2,
+                             0.5, 0.7,
+                             1.2, 0.4,
                              0.4
                              ),
                     "n" = c(5, 21, NA, 18,
                             # frankfurt
-                            6,
-                            10, 8,
-                            12, 19,
-                            15
+                            6, 10,
+                            8, 12,
+                            19, 15,
+                            6
                             ),
                     "University" = c("CGN", "CGN", "CGN", "CGN",
                               "FRA", "FRA", "FRA", "FRA", "FRA",
-                              "FRA"),
+                              "FRA", "FRA"),
                     "worth" = c (NA, NA, NA, NA, NA,
                                  5.8, 5.3, 5.5, 5.9,
-                                 5.8),
+                                 5.8, 5.8),
                     "worthSD" = c (NA, NA, NA, NA, NA,
                                  0.4, 0.8, 0.7, 0.3,
-                                 0.6)
+                                 0.6, 0.4)
                     )
 
 evals$grandmean <- mean(evals$mean, na.rm = T)
@@ -55,8 +56,7 @@ library(ggplot2); theme_set(theme_bw() +
 
 # full enlish version
 # win.metafile("C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.wmf")
-dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.png",
-         units="px", width=1600, height=1600, res=300)
+
 ggplot(data = evals, aes(y = semester,
                          x = mean#,
                          # colour = University
@@ -89,12 +89,13 @@ ggplot(data = evals, aes(y = semester,
        Overall grade (left y-axis): Until 2018 scale 1-5,
        from 2018/19 scale 1-6") +
 coord_flip()
+
+dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime.png",
+         units="px", width=1600, height=1600, res=300)
 dev.off()
 
 
 # german version
-dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime_de.png",
-         units="px", width=1600, height=1600, res=300)
 ggplot(data = evals, aes(y = semester,
                          x = mean#,
                          # colour = University
@@ -126,6 +127,9 @@ ggplot(data = evals, aes(y = semester,
        Bis 2018: Skala von 1-5,
        ab 2018/19: Skala von 1-6") +
   coord_flip()
+
+dev.copy(png, "C:/Users/czymara.local/PowerFolders/teaching/teachingevaluations/out/evalovertime_de.png",
+         units="px", width=1600, height=1600, res=300)
 dev.off()
 
 

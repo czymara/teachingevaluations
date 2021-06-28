@@ -6,7 +6,10 @@ evaluations <- read.delim("C:/Users/czymara.local/PowerFolders/teaching/teaching
 
 evaluations <- as.character(evaluations[,1])
 
-library("quanteda", "tidytext", "dplyr")
+packages <- c("quanteda", "tidytext", "dplyr",
+              "magrittr", "reshape2", "translateR",
+              "wordcloud")
+lapply(packages, library, character.only = TRUE)
 
 
 toks <- tokens(corpus(evaluations), remove_punct = T,
@@ -33,6 +36,54 @@ textplot_wordcloud(DFM,
                  #  min_count = 3,
                    color = "black")
 dev.off()
+
+
+### positive and negative terms
+translate(evaluations, target = "en",
+          google.api.key) ## needs to register (and pay?) Google API
+
+d <- tibble(txt = evaluations)
+
+evaluations_tidy <- d %>%
+  unnest_tokens(word, txt)
+
+evaluations_tidy <- evaluations_tidy %>%
+  anti_join(get_stopwords())%>%
+  anti_join(get_stopwords("german"))
+
+evaluations_tidy %>%
+  count(word, sort = TRUE)
+
+bing <- get_sentiments("bing")
+positive <- get_sentiments("bing") %>%
+  filter(sentiment == "positive")
+negative <- get_sentiments("bing") %>%
+  filter(sentiment == "negative")
+
+evaluations_tidy %>%
+  semi_join(positive) %>%
+  count(word, sort = TRUE) # 12 positive (english) words
+evaluations_tidy %>%
+  semi_join(negative) %>%
+  count(word, sort = TRUE) # 4 negative (english) words
+
+12/4 # odds of negative terms 2.6 higher than positive term
+
+
+evaluations_senti <- evaluations_tidy %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(word, sentiment, sort = TRUE)
+
+
+# plot
+dev.copy(png,"C:/Users/czymara.local/PowerFolders/zonstiges/spielRei/discogs/senti_wordcloud.png")
+evaluations_senti %>%
+  inner_join(bing) %>%
+  acast(word ~ sentiment, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("#F8766D", "#00BFC4"), max.words = 100
+  )
+dev.off()
+
 
 
 ## sentiment analysis
